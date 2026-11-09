@@ -1,0 +1,3 @@
+[submodule "sagev"]
+	path = sagev
+	url = https://github.com/JohnathanTantanan/risc-v-sim.git

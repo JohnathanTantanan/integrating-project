@@ -1,0 +1,13 @@
+{
+  "name": "sagev-batch",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "export": "tsx tools/export.ts",
+    "check": "tsx tools/check.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.13",
+    "typescript": "~6.0.2"
+  }
+}
