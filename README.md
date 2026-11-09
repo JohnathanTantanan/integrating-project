@@ -1,6 +1,6 @@
 # SageV-Batch
 
-Data-parallel, cycle-accurate simulation of a pipelined RV32I processor on an AMD GPU. This is the integrating project of Lance Xavier Lim and James Russel Padua for Advanced Computer Architecture, 1st Term SY 2026-2027, De La Salle University.
+Data-parallel, cycle-accurate simulation of a pipelined RV32I processor on an AMD GPU. This is the integrating project of Lance Xavier Lim for Advanced Computer Architecture, 1st Term SY 2026-2027, De La Salle University.
 
 SageV is a web simulator of a five-stage RV32I pipeline. Its core runs one program at a time. SageV-Batch runs thousands of independent programs at once, one GPU thread per simulated machine, through HIP on an AMD Radeon RX 6600 XT. Every result is checked against SageV's own TypeScript core, and the timing is compared with a sequential C++ version of the same step function.
 
