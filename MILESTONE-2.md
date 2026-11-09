@@ -1,6 +1,6 @@
 # SageV-Batch: Week 10 mid-project milestone
 
-Lance Xavier Lim and James Russel Padua. Advanced Computer Architecture, 1st Term SY 2026-2027.
+Lance Xavier Lim. Advanced Computer Architecture, 1st Term SY 2026-2027.
 
 ## What the mid-project milestone promised
 
