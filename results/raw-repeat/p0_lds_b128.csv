@@ -1,0 +1,4 @@
+model,programs,order,lds,pinned,streams,block,cpu_ms,gpu_kernel_ms,gpu_layout_ms,gpu_total_ms,gpu_flags_ms,speedup_kernel,speedup_total,speedup_flags,simt_eff,cpu_pass,gpu_pass,gpu_flags_pass
+p0,262144,none,1,0,1,128,0.000,2.649,17.780,61.386,38.439,0.00,0.00,0.00,0.4387,0,262144,262144
+p0,524288,none,1,0,1,128,0.000,5.264,34.521,130.810,74.353,0.00,0.00,0.00,0.4387,0,524288,524288
+p0,1048576,none,1,0,1,128,0.000,10.500,69.340,257.262,141.670,0.00,0.00,0.00,0.4387,0,1048576,1048576
