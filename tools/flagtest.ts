@@ -9,8 +9,9 @@ const arg = (name: string, fallback: string) => {
 
 const engine = arg('engine-exe', 'build/sagev-batch.exe');
 const kind = arg('engine', 'hip');
+const model = arg('model', 'p0');
 const batchPath = arg('batch', 'data/batch.bin');
-const expectedPath = arg('expected', 'data/expected_p0.bin');
+const expectedPath = arg('expected', `data/expected_${model}.bin`);
 const expected = decodeResults(readFileSync(expectedPath));
 
 const edits: [string, (i: number) => void][] = [
@@ -23,6 +24,10 @@ const edits: [string, (i: number) => void][] = [
   ['retired', i => { expected[i].retired += 1; }],
   ['status', i => { expected[i].status ^= 3; }],
 ];
+if (model === 'p2') {
+  edits.push(['stalls', i => { expected[i].stalls += 1; }]);
+  edits.push(['flushes', i => { expected[i].flushes += 1; }]);
+}
 const step = Math.floor(expected.length / (edits.length + 1));
 const corrupted = edits.map(([name, edit], k) => {
   const i = step * (k + 1) + k;
@@ -32,12 +37,12 @@ const corrupted = edits.map(([name, edit], k) => {
 writeFileSync('data/expected_bad.bin', encodeResults(expected));
 
 try {
-  execFileSync(engine, ['run', '--model', 'p0', '--engine', kind, '--batch', batchPath, '--expected', 'data/expected_bad.bin', '--out', 'data/result_bad.bin'], { stdio: 'pipe' });
+  execFileSync(engine, ['run', '--model', model, '--engine', kind, '--batch', batchPath, '--expected', 'data/expected_bad.bin', '--out', 'data/result_bad.bin'], { stdio: 'pipe' });
 } catch {}
 const results = decodeResults(readFileSync('data/result_bad.bin'));
 const failed = results.flatMap((r, i) => (r.pass === 1 ? [] : [i]));
 const want = corrupted.map(c => c.i);
 const ok = failed.length === want.length && failed.every((i, k) => i === want[k]);
 for (const c of corrupted) console.log(`${c.name.padEnd(10)} program ${c.i}: ${results[c.i].pass === 0 ? 'flagged' : 'MISSED'}`);
-console.log(ok ? `${kind}: exactly the ${want.length} corrupted programs were flagged, out of ${results.length}` : `${kind}: flagged ${failed.length} programs, expected ${want.length}`);
+console.log(ok ? `${model} ${kind}: exactly the ${want.length} corrupted programs were flagged, out of ${results.length}` : `${model} ${kind}: flagged ${failed.length} programs, expected ${want.length}`);
 process.exit(ok ? 0 : 1);
